@@ -17,7 +17,7 @@ class main_teste {
         sql.Append(prop.Name + "; ");
     }*/
     
-    string cs = @"server=127.0.0.1;username=postgres;";
+    string cs = @"server=127.0.0.1;username=postgres;database=Umc;";
 
     using var con = new NpgsqlConnection(cs);
     con.Open();

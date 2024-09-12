@@ -149,7 +149,7 @@ class program_teste
     {
         NpgsqlConnection con;
         con = new NpgsqlConnection("Persist Security Info=False;" +
-        "server=127.0.0.1;username=postgres;");
+        "server=127.0.0.1;username=postgres;database=Umc;");
         try
         {
             con.Open();
@@ -175,7 +175,7 @@ class program_teste
         try
         {
             NpgsqlConnection con;
-            con = new NpgsqlConnection("Persist Security Info=False;server=127.0.0.1;username=postgres;");
+            con = new NpgsqlConnection("Persist Security Info=False;server=127.0.0.1;username=postgres;database=Umc;");
             con.Open();
             //verificva se a conexão esta aberta
             if (con.State == ConnectionState.Open)
@@ -204,8 +204,9 @@ class program_teste
 
     public static void Main(string[] args)
     {
-        Livro_teste livro_ = new Livro_teste();
-        CreateTableX(typeof(Livro_teste));
+        
+        //CreateTableX(typeof(Livro_teste));
+        //CreateTableX(typeof(AlunoTeste));
         string opcao = "";
         do
         {
@@ -247,7 +248,7 @@ class program_teste
 
                         string sql = $"INSERT INTO AlunoTeste (Rgm, Nome, Senha, Gen, Email) VALUES ('{aluno.Rgm}', '{aluno.Nome}', '{aluno.Senha}', '{aluno.Gen}', '{aluno.Email}');";
                         Console.WriteLine(sql);
-                        //executeScript(sql);
+                        executeScript(sql);
                         break;
                     }
                 case "2":{
@@ -259,30 +260,48 @@ class program_teste
                     Console.WriteLine("+-----------------------------------------------+    ");
                     AlunoMod(aluno);
 
-                    string sql = $"UPDATE AlunoTeste SET Nome = '{aluno.Nome}', senha = '{aluno.Senha}', email = {aluno.Email}, gen = '{aluno.Gen}' WHERE rgm =  '{aluno.Rgm}' ";
+                    string sql = $"UPDATE AlunoTeste SET Nome = '{aluno.Nome}', senha = '{aluno.Senha}', email = '{aluno.Email}', gen = '{aluno.Gen}' WHERE rgm =  '{aluno.Rgm}' ";
                     Console.WriteLine(sql);
-                    //executeScript(sql);
+                    executeScript(sql);
 
                     break;
                 }
                 case "3":{
                     AlunoTeste aluno = new AlunoTeste();
-                    Console.WriteLine("+------------------------- LIVRO  --------------+    ");
+                    Console.WriteLine("+------------------------- ALUNO  --------------+    ");
                     Console.WriteLine("Â¦                                              ¦    ");
                     Console.WriteLine("    Forneca O RGM do Aluno:                     ¦    ");
                     Console.WriteLine("Â¦                                              ¦    ");
                     Console.WriteLine("+-----------------------------------------------+    ");
 
-                    //executeQuery("SELECT * FROM AlunoTeste");
+                    executeQuery("SELECT * FROM AlunoTeste");
 
                     int search_isbn = int.Parse(Console.ReadLine());
                     string sql = $"delete from Livro where rgm = '{search_isbn} ";
                     Console.WriteLine(sql);
-                    //executeScript(sql);
+                    executeScript(sql);
 
                     break;
                 }
-                case "4":{break;}
+                case "4":{
+
+                    AlunoTeste aluno = new AlunoTeste();
+                    Console.WriteLine("+------------------------- ALUNO  --------------+    ");
+                    Console.WriteLine("Â¦                                              ¦    ");
+                    Console.WriteLine("    Forneca O RGM do Aluno:                     ¦    ");
+                    Console.WriteLine("Â¦                                              ¦    ");
+                    Console.WriteLine("+-----------------------------------------------+    ");
+
+                    Console.WriteLine("RGM: ");
+                    int rgm = Convert.ToInt32(Console.ReadLine().ToString());
+
+
+                    string sql = "";
+                    sql = $"SELECT * FROM AlunoTeste WHERE rgm = {rgm};";
+                    executeQuery(sql);
+                    
+                    break;
+                }
                 case "5":
                     {
                         Livro_teste l = new Livro_teste();
@@ -458,6 +477,7 @@ class program_teste
         }
 
         Console.WriteLine(table.ToString());
+        executeScript(table.ToString());
 
 
 
