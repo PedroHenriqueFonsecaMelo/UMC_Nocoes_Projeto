@@ -3,210 +3,16 @@ using System.Data;
 using System.Reflection;
 using System.Text;
 using MySql.Data.MySqlClient;
-using Npgsql;
+using main.src.teste_pacote;
+using main.src.dbcon;
 
-
-
-public class Livro_teste
-{
-    private string isbn;
-    private string titulo;
-    private string autor;
-    private int ano;
-    private string genero;
-    private int edicao;
-    private int quantidade;
-
-    public Livro_teste(string _titulo, string _autor, int _ano, string _genero, int _edicao, int _quantidade, string _isbn)
-    {
-        isbn = _isbn;
-        titulo = _titulo;
-        autor = _autor;
-        ano = _ano;
-        genero = _genero;
-        edicao = _edicao;
-        quantidade = _quantidade;
-    }
-
-    public Livro_teste()
-    {
-        titulo = "";
-        autor = "";
-        ano = 0;
-        genero = "";
-        edicao = 0;
-        quantidade = 0;
-        isbn = "";
-    }
-
-    public string GetISBN()
-    {
-        return isbn;
-    }
-
-    public void SetISBN(string valor)
-    {
-        isbn = valor;
-    }
-
-    public string GetTitulo()
-    {
-        return titulo;
-    }
-
-    public void SetTitulo(string valor)
-    {
-        titulo = valor;
-    }
-
-    public string GetAutor()
-    {
-        return autor;
-    }
-
-    public void SetAutor(string valor)
-    {
-        autor = valor;
-    }
-
-    public int GetAno()
-    {
-        return ano;
-    }
-
-    public void SetAno(int valor)
-    {
-        ano = valor;
-    }
-
-    public string GetGenero()
-    {
-        return genero;
-    }
-
-    public void SetGenero(string valor)
-    {
-        genero = valor;
-    }
-
-    public int GetEdicao()
-    {
-        return edicao;
-    }
-
-    public void SetEdicao(int valor)
-    {
-        edicao = valor;
-    }
-
-    public int GetQuantidade()
-    {
-        return quantidade;
-    }
-
-    public void SetQuantidade(int valor)
-    {
-        quantidade = valor;
-    }
-}
-
-public class AlunoTeste
-{
-
-    private int rgm;
-    private String senha;
-    private String nome;
-    private String gen;
-    private String email;
-
-    public AlunoTeste()
-    {
-        rgm = 0;
-        senha = null; 
-        nome = null;
-        gen = null;
-        email = null;
-    }
-
-    public AlunoTeste(int rgm, string senha, string nome, string gen, string email)
-    {
-        this.rgm = rgm;
-        this.senha = senha;
-        this.nome = nome;
-        this.gen = gen;
-        this.email = email;
-    }
-
-    public int Rgm { get => rgm; set => rgm = value; }
-    public string Senha { get => senha; set => senha = value; }
-    public string Nome { get => nome; set => nome = value; }
-    public string Gen { get => gen; set => gen = value; }
-    public string Email { get => email; set => email = value; }
-}
 class program_teste
 {
-    public static void executeScript(string sql)
-    {
-        NpgsqlConnection con;
-        con = new NpgsqlConnection("Persist Security Info=False;" +
-        "server=127.0.0.1;username=postgres;database=Umc;");
-        try
-        {
-            con.Open();
-            //Console.WriteLine($"MySQL version : {con.ServerVersion}");
-        }
-        catch (System.Exception e)
-        {
-            Console.WriteLine (e.Message.ToString());
-            //MessageBox.Show(e.Message.ToString());
-        }
-
-        //verificva se a conexão esta aberta
-        if (con.State == ConnectionState.Open)
-        {
-            Console.WriteLine("connection Open!");
-            using var cmd = new NpgsqlCommand(sql, con);
-            cmd.ExecuteNonQuery();
-        }
-    }
-
-    public static void executeQuery(string sql)
-    {
-        try
-        {
-            NpgsqlConnection con;
-            con = new NpgsqlConnection("Persist Security Info=False;server=127.0.0.1;username=postgres;database=Umc;");
-            con.Open();
-            //verificva se a conexão esta aberta
-            if (con.State == ConnectionState.Open)
-            {
-                //Console.WriteLine("connection Open!");
-                using var cmd = new NpgsqlCommand(sql, con);
-                using NpgsqlDataReader rdr = cmd.ExecuteReader();
-
-                while (rdr.Read())
-                {
-                    for (int i = 0; i < rdr.FieldCount; i++)
-                    {
-                        Console.Write(rdr[i].ToString() + "\t");
-                    }
-                    Console.WriteLine();
-                }
-            }
-        }
-        catch (System.Exception e)
-        {
-            string msg = "ERROR: When Tried to execute [" + sql + "]";
-            msg += " | execption Error: " + e.Message.ToString();
-            Console.WriteLine(msg);
-        }
-    }
-
     public static void Main(string[] args)
     {
         
-        //CreateTableX(typeof(Livro_teste));
-        //CreateTableX(typeof(AlunoTeste));
+       //CreateTableX(typeof(Livro_teste));
+       //CreateTableX(typeof(AlunoTeste));
         string opcao = "";
         do
         {
@@ -237,55 +43,56 @@ class program_teste
             {
                 case "1":
                     {
-                        AlunoTeste aluno = new AlunoTeste();
+                        
                         Console.WriteLine("+------------------------- Aluno  --------------+    ");
                         Console.WriteLine("¦                                               ¦    ");
                         Console.WriteLine("        Forneca os dados do Aluno:              ¦    ");
                         Console.WriteLine("¦                                               ¦    ");
                         Console.WriteLine("+-----------------------------------------------+    ");
 
-                        AlunoMod(aluno);
+                        AlunoTeste aluno = new AlunoTeste(true);
 
                         string sql = $"INSERT INTO AlunoTeste (Rgm, Nome, Senha, Gen, Email) VALUES ('{aluno.Rgm}', '{aluno.Nome}', '{aluno.Senha}', '{aluno.Gen}', '{aluno.Email}');";
                         Console.WriteLine(sql);
-                        executeScript(sql);
+                        Connectiondb.executeScript(sql);
                         break;
                     }
                 case "2":{
-                    AlunoTeste aluno = new AlunoTeste();
+
+                    
                     Console.WriteLine("+------------------------- Aluno  --------------+    ");
                     Console.WriteLine("¦                                               ¦    ");
                     Console.WriteLine("    Forneca os dados atualizados do Aluno:      ¦    ");
                     Console.WriteLine("¦                                               ¦    ");
                     Console.WriteLine("+-----------------------------------------------+    ");
-                    AlunoMod(aluno);
+
+                    AlunoTeste aluno = new AlunoTeste(true);
 
                     string sql = $"UPDATE AlunoTeste SET Nome = '{aluno.Nome}', senha = '{aluno.Senha}', email = '{aluno.Email}', gen = '{aluno.Gen}' WHERE rgm =  '{aluno.Rgm}' ";
                     Console.WriteLine(sql);
-                    executeScript(sql);
+                    Connectiondb.executeScript(sql);
 
                     break;
                 }
                 case "3":{
-                    AlunoTeste aluno = new AlunoTeste();
+                    
                     Console.WriteLine("+------------------------- ALUNO  --------------+    ");
                     Console.WriteLine("Â¦                                              ¦    ");
                     Console.WriteLine("    Forneca O RGM do Aluno:                     ¦    ");
                     Console.WriteLine("Â¦                                              ¦    ");
                     Console.WriteLine("+-----------------------------------------------+    ");
 
-                    executeQuery("SELECT * FROM AlunoTeste");
-
+                     Connectiondb.executeScript("SELECT * FROM AlunoTeste");
+                    
                     int search_isbn = int.Parse(Console.ReadLine());
-                    string sql = $"delete from Livro where rgm = '{search_isbn} ";
+                    string sql = $"delete from AlunoTeste where rgm = {search_isbn} ";
                     Console.WriteLine(sql);
-                    executeScript(sql);
+                    Connectiondb.executeScript(sql);
 
                     break;
                 }
                 case "4":{
 
-                    AlunoTeste aluno = new AlunoTeste();
                     Console.WriteLine("+------------------------- ALUNO  --------------+    ");
                     Console.WriteLine("Â¦                                              ¦    ");
                     Console.WriteLine("    Forneca O RGM do Aluno:                     ¦    ");
@@ -298,13 +105,13 @@ class program_teste
 
                     string sql = "";
                     sql = $"SELECT * FROM AlunoTeste WHERE rgm = {rgm};";
-                    executeQuery(sql);
+                     Connectiondb.executeQuery(sql);
                     
                     break;
                 }
                 case "5":
                     {
-                        Livro_teste l = new Livro_teste();
+                        livro_teste l = new livro_teste();
                         Console.WriteLine("+------------------------- LIVRO  --------------+    ");
                         Console.WriteLine("¦                                               ¦    ");
                         Console.WriteLine("        Forneca os dados do Livro:              ¦    ");
@@ -335,14 +142,14 @@ class program_teste
 
                         string sql = $"INSERT INTO Livro (isbn, titulo, autor, ano, genero, edicao, quantidade) VALUES ('{l.GetISBN()}', '{l.GetTitulo()}', '{l.GetAutor()}', {l.GetAno()}, '{l.GetGenero()}', {l.GetEdicao()}, {l.GetQuantidade()});";
 
-                        executeScript(sql);
+                        Connectiondb.executeScript(sql);
 
                         break;
 
                     }
                 case "6":
                     {
-                        Livro_teste l = new Livro_teste();
+                        livro_teste l = new livro_teste();
                         Console.WriteLine("+------------------------- LIVRO  --------------+    ");
                         Console.WriteLine("¦                                               ¦    ");
                         Console.WriteLine("    Forneca os dados atualizados do Livro:      ¦    ");
@@ -373,13 +180,12 @@ class program_teste
 
                         string sql = $"UPDATE Livro SET titulo = '{l.GetTitulo()}', autor = '{l.GetAutor()}', ano = {l.GetAno()}, genero = '{l.GetGenero()}', edicao = {l.GetEdicao()}, quantidade = {l.GetQuantidade()} WHERE isbn =  '{l.GetISBN()}' ";
 
-                        executeScript(sql);
+                         Connectiondb.executeScript(sql);
 
                         break;
                     }
-                case "7":
-                    {
-                        Livro_teste l = new Livro_teste();
+                case "7":{
+                        livro_teste l = new livro_teste();
 
                         Console.WriteLine("+------------------------- LIVRO  --------------+    ");
                         Console.WriteLine("Â¦                                               Â¦    ");
@@ -387,17 +193,17 @@ class program_teste
                         Console.WriteLine("Â¦                                               Â¦    ");
                         Console.WriteLine("+-----------------------------------------------+    ");
 
-                        executeQuery("SELECT * FROM Livro");
+                        Connectiondb.executeQuery("SELECT * FROM Livro");
 
                         int search_isbn = int.Parse(Console.ReadLine());
                         string sql = $"delete from Livro where ISBN = '{search_isbn} ";
-                        executeScript(sql);
+                        Connectiondb.executeScript(sql);
                         break;
                     }
                 case "8":
                     {
 
-                        Livro_teste l = new Livro_teste();
+                        livro_teste l = new livro_teste();
                         Console.WriteLine("+------------------------- LIVRO  --------------+    ");
                         Console.WriteLine("Â¦                                               Â¦    ");
                         Console.WriteLine("    Forneca O Titulo do Livro:      Â¦    ");
@@ -410,7 +216,7 @@ class program_teste
 
                         string sql = "";
                         sql = $"SELECT * FROM Livro WHERE titulo LIKE '%{l.GetTitulo()}%';";
-                        executeQuery(sql);
+                        Connectiondb.executeQuery(sql);
                         break;
 
                     }
@@ -426,29 +232,7 @@ class program_teste
 
     }
 
-    private static void AlunoMod(AlunoTeste aluno)
-    {
-        FieldInfo[] Fields = typeof(AlunoTeste).GetFields(BindingFlags.Instance | BindingFlags.NonPublic);
-        foreach (var item in Fields)
-        {
 
-            Console.WriteLine($"{item.Name}:");
-
-            if (item.FieldType.Name == "Int32")
-            {
-
-                int value = Convert.ToInt32(Console.ReadLine());
-                aluno.GetType().GetField(item.Name, BindingFlags.Instance | BindingFlags.NonPublic).SetValue(aluno, value);
-
-            }
-            else
-            {
-
-                String value = Console.ReadLine();
-                aluno.GetType().GetField(item.Name, BindingFlags.Instance | BindingFlags.NonPublic).SetValue(aluno, value);
-            }
-        }
-    }
 
     public static void CreateTableX(Type classe) {
         Object obj = Activator.CreateInstance(classe);
@@ -457,17 +241,14 @@ class program_teste
         StringBuilder table = new StringBuilder();
         String name, tipo;
         int i = 0;
-        table.Append("create table " + obj.GetType().FullName + " ("); // + "(" + "id" + x.getSimpleName() + " INT PRIMARY
-                                                                  // KEY
-        // AUTO_INCREMENT ,");
+        table.Append("create table " + obj.GetType().FullName + " (");
         
         
         foreach (FieldInfo f in Fields) {
-            // f.setAccessible(true);
+            
             i++;
             name = f.Name;
             tipo = f.FieldType.Name;
-
 
             if (i <= Fields.Length - 1) {
                 table.Append(extracted(name, tipo) + " , ");
@@ -477,10 +258,8 @@ class program_teste
         }
 
         Console.WriteLine(table.ToString());
-        executeScript(table.ToString());
-
-
-
+        Connectiondb.executeScript(table.ToString());
+        
     }
 
     private static String extracted(String name, String tipo) {

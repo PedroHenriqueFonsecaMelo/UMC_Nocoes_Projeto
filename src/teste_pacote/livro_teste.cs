@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-
-    public class livro_teste{
+namespace main.src.teste_pacote{
     
+public class livro_teste
+{
     private string isbn;
     private string titulo;
     private string autor;
@@ -105,4 +106,6 @@ using System.Threading.Tasks;
     {
         quantidade = valor;
     }
+}
+
 }
