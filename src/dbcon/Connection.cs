@@ -29,8 +29,11 @@ namespace main.src.dbcon
             {
                 Console.WriteLine("connection Open!");
                 using var cmd = new MySqlCommand(sql, con);
-                cmd.ExecuteNonQuery();
+                cmd.ExecuteNonQuery(); 
+                con.Close();
             }
+
+           
         }
 
         public static void executeQuery(string sql)
@@ -43,16 +46,26 @@ namespace main.src.dbcon
                 {
                     //Console.WriteLine("connection Open!");
                     using var cmd = new MySqlCommand(sql, con);
+                    
                     using MySqlDataReader rdr = cmd.ExecuteReader();
-
+                    
                     while (rdr.Read())
                     {
                         for (int i = 0; i < rdr.FieldCount; i++)
                         {
+                            Console.Write(rdr.GetName(i).ToString() + "\t");
+            
+                        }
+                        Console.WriteLine();
+                        for (int i = 0; i < rdr.FieldCount; i++)
+                        {
+                           
                             Console.Write(rdr[i].ToString() + "\t");
                         }
                         Console.WriteLine();
                     }
+
+                    con.Close();
                 }
             }
             catch (System.Exception e)

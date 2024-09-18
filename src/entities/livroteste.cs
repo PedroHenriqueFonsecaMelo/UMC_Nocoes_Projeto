@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace main.src.teste_pacote{
+namespace main.src.entities
+{
     
-public class livro_teste
+public class Livroteste
 {
     private string isbn;
     private string titulo;
@@ -15,7 +16,7 @@ public class livro_teste
     private int edicao;
     private int quantidade;
 
-    public livro_teste(string _titulo, string _autor, int _ano, string _genero, int _edicao, int _quantidade, string _isbn)
+    public Livroteste(string _titulo, string _autor, int _ano, string _genero, int _edicao, int _quantidade, string _isbn)
     {
         isbn = _isbn;
         titulo = _titulo;
@@ -26,7 +27,7 @@ public class livro_teste
         quantidade = _quantidade;
     }
 
-    public livro_teste()
+    public Livroteste()
     {
         titulo = "";
         autor = "";

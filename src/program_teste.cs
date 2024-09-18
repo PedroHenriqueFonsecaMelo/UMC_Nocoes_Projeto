@@ -3,15 +3,14 @@ using System.Data;
 using System.Reflection;
 using System.Text;
 using MySql.Data.MySqlClient;
-using main.src.teste_pacote;
 using main.src.dbcon;
+using main.src.entities;
 
 class program_teste
 {
     public static void Main(string[] args)
     {
-        
-       //CreateTableX(typeof(Livro_teste));
+       //CreateTableX(typeof(Livroteste));
        //CreateTableX(typeof(AlunoTeste));
         string opcao = "";
         do
@@ -111,7 +110,7 @@ class program_teste
                 }
                 case "5":
                     {
-                        livro_teste l = new livro_teste();
+                        Livroteste l = new Livroteste();
                         Console.WriteLine("+------------------------- LIVRO  --------------+    ");
                         Console.WriteLine("¦                                               ¦    ");
                         Console.WriteLine("        Forneca os dados do Livro:              ¦    ");
@@ -140,7 +139,7 @@ class program_teste
                         Console.WriteLine("Quantidade: ");
                         l.SetQuantidade(Convert.ToInt32(Console.ReadLine()));
 
-                        string sql = $"INSERT INTO Livro (isbn, titulo, autor, ano, genero, edicao, quantidade) VALUES ('{l.GetISBN()}', '{l.GetTitulo()}', '{l.GetAutor()}', {l.GetAno()}, '{l.GetGenero()}', {l.GetEdicao()}, {l.GetQuantidade()});";
+                        string sql = $"INSERT INTO Livroteste (isbn, titulo, autor, ano, genero, edicao, quantidade) VALUES ('{l.GetISBN()}', '{l.GetTitulo()}', '{l.GetAutor()}', {l.GetAno()}, '{l.GetGenero()}', {l.GetEdicao()}, {l.GetQuantidade()});";
 
                         Connectiondb.executeScript(sql);
 
@@ -149,7 +148,7 @@ class program_teste
                     }
                 case "6":
                     {
-                        livro_teste l = new livro_teste();
+                        Livroteste l = new Livroteste();
                         Console.WriteLine("+------------------------- LIVRO  --------------+    ");
                         Console.WriteLine("¦                                               ¦    ");
                         Console.WriteLine("    Forneca os dados atualizados do Livro:      ¦    ");
@@ -178,14 +177,14 @@ class program_teste
                         Console.WriteLine("Quantidade: ");
                         l.SetQuantidade(Convert.ToInt32(Console.ReadLine()));
 
-                        string sql = $"UPDATE Livro SET titulo = '{l.GetTitulo()}', autor = '{l.GetAutor()}', ano = {l.GetAno()}, genero = '{l.GetGenero()}', edicao = {l.GetEdicao()}, quantidade = {l.GetQuantidade()} WHERE isbn =  '{l.GetISBN()}' ";
+                        string sql = $"UPDATE Livroteste SET titulo = '{l.GetTitulo()}', autor = '{l.GetAutor()}', ano = {l.GetAno()}, genero = '{l.GetGenero()}', edicao = {l.GetEdicao()}, quantidade = {l.GetQuantidade()} WHERE isbn =  '{l.GetISBN()}' ";
 
                          Connectiondb.executeScript(sql);
 
                         break;
                     }
                 case "7":{
-                        livro_teste l = new livro_teste();
+                        Livroteste l = new Livroteste();
 
                         Console.WriteLine("+------------------------- LIVRO  --------------+    ");
                         Console.WriteLine("Â¦                                               Â¦    ");
@@ -193,17 +192,17 @@ class program_teste
                         Console.WriteLine("Â¦                                               Â¦    ");
                         Console.WriteLine("+-----------------------------------------------+    ");
 
-                        Connectiondb.executeQuery("SELECT * FROM Livro");
+                        Connectiondb.executeQuery("SELECT * FROM Livroteste");
 
                         int search_isbn = int.Parse(Console.ReadLine());
-                        string sql = $"delete from Livro where ISBN = '{search_isbn} ";
+                        string sql = $"delete from Livroteste where ISBN = {search_isbn} ";
                         Connectiondb.executeScript(sql);
                         break;
                     }
                 case "8":
                     {
 
-                        livro_teste l = new livro_teste();
+                        Livroteste l = new Livroteste();
                         Console.WriteLine("+------------------------- LIVRO  --------------+    ");
                         Console.WriteLine("Â¦                                               Â¦    ");
                         Console.WriteLine("    Forneca O Titulo do Livro:      Â¦    ");
@@ -215,7 +214,7 @@ class program_teste
 
 
                         string sql = "";
-                        sql = $"SELECT * FROM Livro WHERE titulo LIKE '%{l.GetTitulo()}%';";
+                        sql = $"SELECT * FROM Livroteste WHERE titulo LIKE '%{l.GetTitulo()}%';";
                         Connectiondb.executeQuery(sql);
                         break;
 
@@ -241,7 +240,7 @@ class program_teste
         StringBuilder table = new StringBuilder();
         String name, tipo;
         int i = 0;
-        table.Append("create table " + obj.GetType().FullName + " (");
+        table.Append("create table " + obj.GetType().Name + " (");
         
         
         foreach (FieldInfo f in Fields) {

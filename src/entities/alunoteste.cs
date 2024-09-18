@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using main.src.services;
 
-namespace main.src.teste_pacote
+namespace main.src.entities
 {
     public class AlunoTeste
     {
@@ -36,30 +37,20 @@ namespace main.src.teste_pacote
         {
             if (alunomod)
             {
-                FieldInfo[] Fields = this.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic);
-                foreach (var item in Fields)
-                {
-    
-                    Console.WriteLine($"{item.Name}:");
-    
-                    if (item.FieldType.Name == "Int32")
-                    {
-                        int value = Convert.ToInt32(Console.ReadLine());
-                        this.GetType().GetField(item.Name, BindingFlags.Instance | BindingFlags.NonPublic).SetValue(this, value);
-                    }
-                    else
-                    {
-                        String value = Console.ReadLine();
-                        this.GetType().GetField(item.Name, BindingFlags.Instance | BindingFlags.NonPublic).SetValue(this, value);
-                    }
-                }
-            } else {
+                EntityServices.AutoClassBuilder(this);
+            }
+            else
+            {
                 rgm = 0;
-                senha = null; 
+                senha = null;
                 nome = null;
                 gen = null;
                 email = null;
             }
         }
-    }  
+
+        public static string ToStringInfo(){
+            return EntityServices.ClassInfo(typeof(AlunoTeste));
+        }
+    }
 }
