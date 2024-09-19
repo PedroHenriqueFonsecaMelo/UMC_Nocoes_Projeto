@@ -2,6 +2,15 @@
   "version": 1,
   "dependencies": {
     "net8.0": {
+      "ConsoleTables": {
+        "type": "Direct",
+        "requested": "[2.4.2, )",
+        "resolved": "2.4.2",
+        "contentHash": "0SRFOWYCgFQ0RfAMof2DsGEJHI2YKquCA4X26kKyuG+MG+/2R3NRgRVEqXDMU7eVP69MGDzb1eg4i3/APlIfQg==",
+        "dependencies": {
+          "System.Reflection.TypeExtensions": "4.3.0"
+        }
+      },
       "Microsoft.Data.SqlClient": {
         "type": "Direct",
         "requested": "[5.2.2, )",
@@ -47,6 +56,12 @@
         "dependencies": {
           "Microsoft.Extensions.Logging.Abstractions": "8.0.0"
         }
+      },
+      "Spectre.Console": {
+        "type": "Direct",
+        "requested": "[0.49.2-preview.0.44, )",
+        "resolved": "0.49.2-preview.0.44",
+        "contentHash": "JBGLsYLzINYSu4sdHN+EVVVD3IVdD8MGUrruiYQvIZeoFIPJc8Qt9QmFsztdXqs0IdPgqwxDaHjcNPhYk1L0pQ=="
       },
       "Azure.Core": {
         "type": "Transitive",
@@ -334,6 +349,15 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": "1.1.0",
           "Microsoft.NETCore.Targets": "1.1.0",
+          "System.Runtime": "4.3.0"
+        }
+      },
+      "System.Reflection.TypeExtensions": {
+        "type": "Transitive",
+        "resolved": "4.3.0",
+        "contentHash": "7u6ulLcZbyxB5Gq0nMkQttcdBTx57ibzw+4IOXEfR+sXYQoHvjW5LTLyNr8O22UIMrqYbchJQJnos4eooYzYJA==",
+        "dependencies": {
+          "System.Reflection": "4.3.0",
           "System.Runtime": "4.3.0"
         }
       },

@@ -103,8 +103,9 @@ class program_teste
 
 
                     string sql = "";
-                    sql = $"SELECT * FROM AlunoTeste WHERE rgm = {rgm};";
-                     Connectiondb.executeQuery(sql);
+                    sql = $"SELECT * FROM AlunoTeste";
+                    //WHERE rgm = {rgm};
+                    Connectiondb.executeQuery(sql);
                     
                     break;
                 }

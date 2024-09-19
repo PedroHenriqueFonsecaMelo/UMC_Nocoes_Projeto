@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
+using Spectre.Console;
 
 namespace main.src.dbcon
 {
@@ -11,7 +12,6 @@ namespace main.src.dbcon
     {
         static MySqlConnection con = new("Persist Security Info=False;server=127.0.0.1;userid=root;database=test");
         //static NpgsqlConnection con = new NpgsqlConnection("Persist Security Info=False;server=127.0.0.1;username=postgres;database=Umc;");
-
         public static void executeScript(string sql){
             try
             {
@@ -38,6 +38,7 @@ namespace main.src.dbcon
 
         public static void executeQuery(string sql)
         {
+            var table = new Table();
             try
             {
                 con.Open();
@@ -53,16 +54,19 @@ namespace main.src.dbcon
                     {
                         for (int i = 0; i < rdr.FieldCount; i++)
                         {
-                            Console.Write(rdr.GetName(i).ToString() + "\t");
+                            table.AddColumn(rdr.GetName(i).ToString());
+                            
+                            //Console.Write(rdr.GetName(i).ToString() + "\t");
             
                         }
                         Console.WriteLine();
-                        for (int i = 0; i < rdr.FieldCount; i++)
+                        for (int i = 0; i < rdr.FieldCount - 1; i++)
                         {
-                           
-                            Console.Write(rdr[i].ToString() + "\t");
+                            table.AddRow(rdr);
+                            //Console.Write(rdr[i].ToString() + "\t");
                         }
-                        Console.WriteLine();
+                        AnsiConsole.Write(table);
+                        //Console.WriteLine(rdr.GetType());
                     }
 
                     con.Close();
