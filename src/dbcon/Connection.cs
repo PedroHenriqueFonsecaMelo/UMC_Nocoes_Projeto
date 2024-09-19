@@ -52,30 +52,33 @@ namespace main.src.dbcon
                     using NpgsqlDataReader rdr = cmd.ExecuteReader();
                     string[] numb;
                     numb = new string[rdr.FieldCount];
+
                     
+                    for (int i = 0; i < rdr.FieldCount; i++)
+                    {
+                        table.AddColumn(rdr.GetName(i).ToString());
+                        
+                        //Console.Write(rdr.GetName(i).ToString() + "\t");
+                    }
+
+                    Console.WriteLine();
+
                     while (rdr.Read())
                     {
+                        List<string> rows = new List<string>();
                         for (int i = 0; i < rdr.FieldCount; i++)
                         {
-                            table.AddColumn(rdr.GetName(i).ToString());
-                            
-                            //Console.Write(rdr.GetName(i).ToString() + "\t");
-
+                            rows.Add(rdr.GetValue(i).ToString());
                             
                         }
-                        Console.WriteLine();
-                        for (int i = 0; i < rdr.FieldCount; i++)
-                        {
-                           numb[i] = rdr[i].ToString();
-                          
-                            //Console.Write(rdr[i].ToString() + "\t");
-                        } 
 
-                        table.AddRow(numb);
-                        AnsiConsole.Write(table);
-                        
+                        table.AddRow(rows.ToArray());
                         //Console.WriteLine(rdr.GetType());
                     }
+
+                    AnsiConsole.Write(table);
+
+                    Console.WriteLine();
 
                     con.Close();
                 }
