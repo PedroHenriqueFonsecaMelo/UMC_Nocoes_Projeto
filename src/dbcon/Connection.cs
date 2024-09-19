@@ -4,14 +4,15 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
+using Npgsql;
 using Spectre.Console;
 
 namespace main.src.dbcon
 {
     public static class Connectiondb
     {
-        static MySqlConnection con = new("Persist Security Info=False;server=127.0.0.1;userid=root;database=test");
-        //static NpgsqlConnection con = new NpgsqlConnection("Persist Security Info=False;server=127.0.0.1;username=postgres;database=Umc;");
+        //static MySqlConnection con = new("Persist Security Info=False;server=127.0.0.1;userid=root;database=test");
+        static NpgsqlConnection con = new NpgsqlConnection("Persist Security Info=False;server=127.0.0.1;username=postgres;database=Umc;");
         public static void executeScript(string sql){
             try
             {
@@ -28,7 +29,7 @@ namespace main.src.dbcon
             if (con.State == ConnectionState.Open)
             {
                 Console.WriteLine("connection Open!");
-                using var cmd = new MySqlCommand(sql, con);
+                using var cmd = new NpgsqlCommand(sql, con);
                 cmd.ExecuteNonQuery(); 
                 con.Close();
             }
@@ -46,9 +47,11 @@ namespace main.src.dbcon
                 if (con.State == ConnectionState.Open)
                 {
                     //Console.WriteLine("connection Open!");
-                    using var cmd = new MySqlCommand(sql, con);
+                    using var cmd = new NpgsqlCommand(sql, con);
                     
-                    using MySqlDataReader rdr = cmd.ExecuteReader();
+                    using NpgsqlDataReader rdr = cmd.ExecuteReader();
+                    string[] numb;
+                    numb = new string[rdr.FieldCount];
                     
                     while (rdr.Read())
                     {
@@ -57,15 +60,20 @@ namespace main.src.dbcon
                             table.AddColumn(rdr.GetName(i).ToString());
                             
                             //Console.Write(rdr.GetName(i).ToString() + "\t");
-            
+
+                            
                         }
                         Console.WriteLine();
-                        for (int i = 0; i < rdr.FieldCount - 1; i++)
+                        for (int i = 0; i < rdr.FieldCount; i++)
                         {
-                            table.AddRow(rdr);
+                           numb[i] = rdr[i].ToString();
+                          
                             //Console.Write(rdr[i].ToString() + "\t");
-                        }
+                        } 
+
+                        table.AddRow(numb);
                         AnsiConsole.Write(table);
+                        
                         //Console.WriteLine(rdr.GetType());
                     }
 
