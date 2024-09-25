@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Org.BouncyCastle.Security;
 using Spectre.Console;
+using UMC_Nocoes_Projeto.src.DTOs;
 
 namespace UMC_Nocoes_Projeto.src.services
 {
@@ -20,11 +21,103 @@ namespace UMC_Nocoes_Projeto.src.services
             return _instance;
         }
 
-        public string ShowMenu(){
+        public string ShowMenu(string key)
+        {
 
-            Panel menu = new("MENU DE OPÇÕES");
-            menu.Border = BoxBorder.Ascii;
-            
+            Markup content_aluno = new Markup("1 INCLUIR   - ALUNO\n2 ATUALIZAR - ALUNO\n3 REMOVER   - ALUNO\n4 CONSULTAR - ALUNO").Centered();
+            Markup content_livro = new Markup(
+            "1 INCLUIR   - LIVRO\n2 ATUALIZAR - LIVRO\n3 REMOVER   - LIVRO\n4 CONSULTAR - LIVRO").Centered();
+            Markup content_sair = new Markup("[bold red] 0 SAIR [/]").Centered();
+            Markup content_menu = new Markup("1 Secretaria\n2 Biblioteca").Centered();
+
+            Table table = new Table();
+            Panel panel = new Panel(table);
+
+            switch (key)
+            {
+                case "ConsultarAluno":
+                    {
+
+                        /*
+                        Console.WriteLine("║            1 INCLUIR   - ALUNO                ║    ");
+                        Console.WriteLine("║            2 ATUALIZAR - ALUNO                ║    ");
+                        Console.WriteLine("║            3 REMOVER   - ALUNO                ║    ");
+                        Console.WriteLine("║            4 CONSULTAR - ALUNO                ║    ");
+                        */
+                        table.AddColumn("");
+                        table.AddRow(new Panel(content_aluno).Border(BoxBorder.Ascii)).Centered();
+
+                        
+                        table.HideHeaders();
+                        table.Border(TableBorder.None);
+                        panel.Header = new PanelHeader("MENU DE OPÇÕES");
+                        panel.Border = BoxBorder.Double;
+                        AnsiConsole.Write(panel);
+
+                        Console.WriteLine(" ");
+                        Console.Write("DIGITE UMA OPÇÃO : ");
+
+
+                        string opcao_aluno = Console.ReadLine();
+
+                        OpcoesAluno(opcao_aluno);
+                        break;
+                    }
+
+                case "ConsultarLivro":
+                    {
+                        /*
+                        Console.WriteLine("║            1 INCLUIR   - LIVRO                ║    ");
+                        Console.WriteLine("║            2 ATUALIZAR - LIVRO                ║    ");
+                        Console.WriteLine("║            3 REMOVER   - LIVRO                ║    ");
+                        Console.WriteLine("║            4 CONSULTAR - LIVRO                ║    ");
+                        */
+                        table.AddColumn("");
+                        table.AddRow(new Panel(content_livro).Border(BoxBorder.Ascii)).Centered();
+
+
+                        table.HideHeaders();
+                        table.Border(TableBorder.None);
+                        panel.Header = new PanelHeader("MENU DE OPÇÕES");
+                        panel.Border = BoxBorder.Double;
+                        AnsiConsole.Write(panel);
+
+
+                        Console.WriteLine(" ");
+                        Console.Write("DIGITE UMA OPÇÃO : ");
+                        string opcao_livro = Console.ReadLine();
+                        OpcoesLivro(opcao_livro);
+
+                        break;
+                    }
+                case "Menu":
+                    {
+                        /*
+                        Console.WriteLine("║            1 Secretaria                ║    ");
+                        Console.WriteLine("║            2 Biblioteca                ║    ");
+                        */
+
+
+
+
+                        table.AddColumn("");
+                        table.AddRow(new Panel(content_menu).Border(BoxBorder.Ascii).Expand()).Centered();
+
+                        table.HideHeaders();
+                        table.Border(TableBorder.None);
+                        panel.Header = new PanelHeader("MENU DE OPÇÕES");
+                        panel.Border = BoxBorder.Double;
+                        AnsiConsole.Write(panel);
+
+                        Console.WriteLine(" ");
+                        Console.Write("DIGITE UMA OPÇÃO : ");
+                        return Console.ReadLine();
+                    }
+
+            }
+
+            /*
+
             Console.WriteLine("╔════════════════ MENU DE OPÇÕES ═══════════════╗    ");
             Console.WriteLine("║                                               ║    ");
             Console.WriteLine("║            1 INCLUIR   - ALUNO                ║    ");
@@ -39,45 +132,69 @@ namespace UMC_Nocoes_Projeto.src.services
             Console.WriteLine("║═══════════════════════════════════════════════║    ");
             Console.WriteLine("║          0 SAIR                               ║    ");
             Console.WriteLine("╚═══════════════════════════════════════════════╝    ");
+            */
             Console.WriteLine(" ");
             Console.Write("DIGITE UMA OPÇÃO : ");
 
+
             string opcao = Console.ReadLine();
-            return opcao;
+            return "0";
         }
 
-        public void ShowAnsi(){
-            var content = new Markup(
-            "[underline]I[/] heard [underline on blue]you[/] like panels\n\n\n\n" +
-            "So I put a panel in a panel").Centered();
+        private static void OpcoesLivro(string opcao_livro)
+        {
+            switch (opcao_livro)
 
-        AnsiConsole.Write(
-            new Panel(
-                new Panel(content)
-                    .Border(BoxBorder.Rounded)));
+            {
+                case "1":
+                    {
+                        BibliotecaDTO.Criar_livro();
+                        break;
+                    }
+                case "2":
+                    {
+                        BibliotecaDTO.Atualizar_livro();
+                        break;
+                    }
+                case "3":
+                    {
+                        BibliotecaDTO.Deletar_livro();
+                        break;
+                    }
+                case "4":
+                    {
+                        BibliotecaDTO.Pesquisar_livro();
+                        break;
+                    }
+            }
+        }
 
-        // Left adjusted panel with text
-        AnsiConsole.Write(
-            new Panel(new Text("Left adjusted\nLeft").LeftJustified())
-                .Expand()
-                .SquareBorder()
-                .Header("[red]Left[/]"));
+        private static void OpcoesAluno(string opcao_aluno)
+        {
+            switch (opcao_aluno)
+            {
 
-        // Centered ASCII panel with text
-        AnsiConsole.Write(
-            new Panel(new Text("Centered\nCenter").Centered())
-                .Expand()
-                .AsciiBorder()
-                .Header("[green]Center[/]")
-                .HeaderAlignment(Justify.Center));
-
-        // Right adjusted, rounded panel with text
-        AnsiConsole.Write(
-            new Panel(new Text("Right adjusted\nRight").RightJustified())
-                .Expand()
-                .RoundedBorder()
-                .Header("[blue]Right[/]")
-                .HeaderAlignment(Justify.Right));
+                case "1":
+                    {
+                        SecretariaDTO.CriarAluno();
+                        break;
+                    }
+                case "2":
+                    {
+                        SecretariaDTO.UpdateAluno();
+                        break;
+                    }
+                case "3":
+                    {
+                        SecretariaDTO.DeleteAluno();
+                        break;
+                    }
+                case "4":
+                    {
+                        SecretariaDTO.ConsultarAluno();
+                        break;
+                    }
+            }
         }
     }
 }
