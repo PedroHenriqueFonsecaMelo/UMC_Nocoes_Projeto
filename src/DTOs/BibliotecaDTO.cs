@@ -4,12 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using main.src.dbcon;
 using main.src.entities;
+using UMC_Nocoes_Projeto.src.repositories;
 
 namespace UMC_Nocoes_Projeto.src.DTOs
 {
     public class BibliotecaDTO
     {
-        public static void Criar_livro(){
+        public void Criar_livro()
+        {
             Livroteste livro = new Livroteste();
             Console.WriteLine("ISBN: ");
             livro.SetISBN(Console.ReadLine().ToString());
@@ -34,28 +36,44 @@ namespace UMC_Nocoes_Projeto.src.DTOs
 
             string sql = $"INSERT INTO Livroteste (isbn, titulo, autor, ano, genero, edicao, quantidade) VALUES ('{livro.GetISBN()}', '{livro.GetTitulo()}', '{livro.GetAutor()}', {livro.GetAno()}, '{livro.GetGenero()}', {livro.GetEdicao()}, {livro.GetQuantidade()});";
 
-            Connectiondb.executeScript(sql);
-
+            using (Repository repository = new Repository())
+            {
+                repository.executeScript(sql);
+            }
         }
-        public static void Pesquisar_livro(){
+
+        public void Pesquisar_livro()
+        {
             Livroteste pesquisa = new Livroteste();
             Console.WriteLine("Titulo: ");
-             pesquisa.SetTitulo(Console.ReadLine().ToString());
-             
+            pesquisa.SetTitulo(Console.ReadLine().ToString());
+
 
             string sql = "";
             sql = $"SELECT * FROM Livroteste WHERE titulo LIKE '%{pesquisa.GetTitulo()}%';";
-            Connectiondb.executeQuery(sql);
+            using (Repository repository = new Repository())
+            {
+                repository.executeQuery(sql);
+            }
         }
-        public static void Deletar_livro(){
+        public void Deletar_livro()
+        {
             Livroteste deletar = new Livroteste();
-            Connectiondb.executeQuery("SELECT * FROM Livroteste");
+            using (Repository repository = new Repository())
+            {
+                repository.executeQuery("SELECT * FROM Livroteste");
 
+            }
+            
             int search_isbn = int.Parse(Console.ReadLine());
             string sql = $"delete from Livroteste where ISBN = {search_isbn} ";
-            Connectiondb.executeScript(sql);
+            using (Repository repository = new Repository())
+            {
+                repository.executeScript(sql);
+            }
         }
-        public static void Atualizar_livro(){
+        public void Atualizar_livro()
+        {
             Livroteste atualizar = new Livroteste();
             Console.WriteLine("ISBN: ");
             atualizar.SetISBN(Console.ReadLine().ToString());
@@ -79,8 +97,11 @@ namespace UMC_Nocoes_Projeto.src.DTOs
             atualizar.SetQuantidade(Convert.ToInt32(Console.ReadLine()));
 
             string sql = $"UPDATE Livroteste SET titulo = '{atualizar.GetTitulo()}', autor = '{atualizar.GetAutor()}', ano = {atualizar.GetAno()}, genero = '{atualizar.GetGenero()}', edicao = {atualizar.GetEdicao()}, quantidade = {atualizar.GetQuantidade()} WHERE isbn =  '{atualizar.GetISBN()}' ";
-
-            Connectiondb.executeScript(sql);
+            
+            using (Repository repository = new Repository())
+            {
+                repository.executeScript(sql);
+            }
         }
     }
 }

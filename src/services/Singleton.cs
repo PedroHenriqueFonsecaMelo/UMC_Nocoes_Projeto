@@ -58,10 +58,10 @@ namespace UMC_Nocoes_Projeto.src.services
                         Console.Write("DIGITE UMA OPÇÃO : ");
 
 
-                        string opcao_aluno = Console.ReadLine();
+                        //string opcao_aluno = Console.ReadLine();
 
-                        OpcoesAluno(opcao_aluno);
-                        break;
+                        //OpcoesAluno(opcao_aluno);
+                         return Console.ReadLine();
                     }
 
                 case "ConsultarLivro":
@@ -84,11 +84,11 @@ namespace UMC_Nocoes_Projeto.src.services
 
 
                         Console.WriteLine(" ");
-                        Console.Write("DIGITE UMA OPÇÃO : ");
-                        string opcao_livro = Console.ReadLine();
-                        OpcoesLivro(opcao_livro);
+                        Console.WriteLine("DIGITE UMA OPÇÃO : ");
+                        //string opcao_livro = Console.ReadLine();
+                        //OpcoesLivro(opcao_livro);
 
-                        break;
+                        return Console.ReadLine();
                     }
                 case "Menu":
                     {
@@ -133,68 +133,11 @@ namespace UMC_Nocoes_Projeto.src.services
             Console.WriteLine("║          0 SAIR                               ║    ");
             Console.WriteLine("╚═══════════════════════════════════════════════╝    ");
             */
-            Console.WriteLine(" ");
-            Console.Write("DIGITE UMA OPÇÃO : ");
 
 
-            string opcao = Console.ReadLine();
+            //string opcao = Console.ReadLine();
             return "0";
         }
 
-        private static void OpcoesLivro(string opcao_livro)
-        {
-            switch (opcao_livro)
-
-            {
-                case "1":
-                    {
-                        BibliotecaDTO.Criar_livro();
-                        break;
-                    }
-                case "2":
-                    {
-                        BibliotecaDTO.Atualizar_livro();
-                        break;
-                    }
-                case "3":
-                    {
-                        BibliotecaDTO.Deletar_livro();
-                        break;
-                    }
-                case "4":
-                    {
-                        BibliotecaDTO.Pesquisar_livro();
-                        break;
-                    }
-            }
-        }
-
-        private static void OpcoesAluno(string opcao_aluno)
-        {
-            switch (opcao_aluno)
-            {
-
-                case "1":
-                    {
-                        SecretariaDTO.CriarAluno();
-                        break;
-                    }
-                case "2":
-                    {
-                        SecretariaDTO.UpdateAluno();
-                        break;
-                    }
-                case "3":
-                    {
-                        SecretariaDTO.DeleteAluno();
-                        break;
-                    }
-                case "4":
-                    {
-                        SecretariaDTO.ConsultarAluno();
-                        break;
-                    }
-            }
-        }
     }
 }
