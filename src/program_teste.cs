@@ -17,7 +17,7 @@ class program_teste
         string opcao = "";
         do
         {
-            opcao = Singleton.getInstance().ShowMenu("Menu");
+            opcao = Singleton.getInstance().ShowMenu("Menu", templateMethod);
 
             if (opcao == "0")
                 break;

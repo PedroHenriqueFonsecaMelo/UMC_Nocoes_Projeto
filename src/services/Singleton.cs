@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Org.BouncyCastle.Security;
 using Spectre.Console;
 using UMC_Nocoes_Projeto.src.DTOs;
+using UMC_Nocoes_Projeto.src.templates;
 
 namespace UMC_Nocoes_Projeto.src.services
 {
@@ -21,7 +22,7 @@ namespace UMC_Nocoes_Projeto.src.services
             return _instance;
         }
 
-        public string ShowMenu(string key)
+        public string ShowMenu(string key, TemplateMethod templateMethod)
         {
 
             Markup content_aluno = new Markup("1 INCLUIR   - ALUNO\n2 ATUALIZAR - ALUNO\n3 REMOVER   - ALUNO\n4 CONSULTAR - ALUNO").Centered();
@@ -56,8 +57,8 @@ namespace UMC_Nocoes_Projeto.src.services
 
                         Console.WriteLine(" ");
                         Console.Write("DIGITE UMA OPÇÃO : ");
-
-
+                        string op =  Console.ReadLine();
+                        templateMethod.run(op);
                         //string opcao_aluno = Console.ReadLine();
 
                         //OpcoesAluno(opcao_aluno);
@@ -91,6 +92,7 @@ namespace UMC_Nocoes_Projeto.src.services
                         return Console.ReadLine();
                     }
                 case "Menu":
+                default:
                     {
                         /*
                         Console.WriteLine("║            1 Secretaria                ║    ");

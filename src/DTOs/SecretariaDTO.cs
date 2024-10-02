@@ -6,11 +6,12 @@ using main.src.dbcon;
 using main.src.entities;
 using Spectre.Console;
 using UMC_Nocoes_Projeto.src.repositories;
+using UMC_Nocoes_Projeto.src.templates;
 
 namespace UMC_Nocoes_Projeto.src.DTOs
 {
 
-    public class SecretariaDTO
+    public class SecretariaDTO : TemplateMethod 
     {
         Table table = new Table();
         Panel panel;
@@ -148,5 +149,32 @@ namespace UMC_Nocoes_Projeto.src.DTOs
             }
         }
 
+        public override void executarAcao(string op)
+        {
+            switch (op)
+        {
+
+            case "1":
+                {
+                    CriarAluno();
+                    break;
+                }
+            case "2":
+                {
+                    UpdateAluno();
+                    break;
+                }
+            case "3":
+                {
+                    DeleteAluno();
+                    break;
+                }
+            case "4":
+                {
+                    ConsultarAluno();
+                    break;
+                }
+        }
+        }
     }
 }
