@@ -38,6 +38,7 @@ namespace UMC_Nocoes_Projeto.src.services
             {
                 case "ConsultarAluno":
                     {
+                        AnsiConsole.Clear(); ;
 
                         /*
                         Console.WriteLine("║            1 INCLUIR   - ALUNO                ║    ");
@@ -48,7 +49,7 @@ namespace UMC_Nocoes_Projeto.src.services
                         table.AddColumn("");
                         table.AddRow(new Panel(content_aluno).Border(BoxBorder.Ascii)).Centered();
 
-                        
+
                         table.HideHeaders();
                         table.Border(TableBorder.None);
                         panel.Header = new PanelHeader("MENU DE OPÇÕES");
@@ -57,16 +58,18 @@ namespace UMC_Nocoes_Projeto.src.services
 
                         Console.WriteLine(" ");
                         Console.Write("DIGITE UMA OPÇÃO : ");
-                        string op =  Console.ReadLine();
+                        string op = Console.ReadLine();
+
                         templateMethod.run(op);
                         //string opcao_aluno = Console.ReadLine();
 
                         //OpcoesAluno(opcao_aluno);
-                         return Console.ReadLine();
+                        return op;
                     }
-
                 case "ConsultarLivro":
                     {
+                        AnsiConsole.Clear(); ;
+
                         /*
                         Console.WriteLine("║            1 INCLUIR   - LIVRO                ║    ");
                         Console.WriteLine("║            2 ATUALIZAR - LIVRO                ║    ");
@@ -86,14 +89,19 @@ namespace UMC_Nocoes_Projeto.src.services
 
                         Console.WriteLine(" ");
                         Console.WriteLine("DIGITE UMA OPÇÃO : ");
+                        string op = Console.ReadLine();
+
+                        templateMethod.run(op);
                         //string opcao_livro = Console.ReadLine();
                         //OpcoesLivro(opcao_livro);
 
-                        return Console.ReadLine();
+                        return op;
                     }
                 case "Menu":
                 default:
                     {
+                        AnsiConsole.Clear(); ;
+
                         /*
                         Console.WriteLine("║            1 Secretaria                ║    ");
                         Console.WriteLine("║            2 Biblioteca                ║    ");
@@ -117,7 +125,6 @@ namespace UMC_Nocoes_Projeto.src.services
                     }
 
             }
-
             /*
 
             Console.WriteLine("╔════════════════ MENU DE OPÇÕES ═══════════════╗    ");
@@ -138,8 +145,6 @@ namespace UMC_Nocoes_Projeto.src.services
 
 
             //string opcao = Console.ReadLine();
-            return "0";
         }
-
     }
 }

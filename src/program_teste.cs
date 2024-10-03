@@ -5,15 +5,17 @@ using main.src.entities;
 using Spectre.Console;
 using UMC_Nocoes_Projeto.src.repositories;
 using Npgsql.Replication;
+using UMC_Nocoes_Projeto.src.templates;
 
 class program_teste
 {
-    
+
 
     public static void Main(string[] args)
     {
         //Repository.CreateTableX(typeof(Livroteste));
         //Repository.CreateTableX(typeof(AlunoTeste));
+        TemplateMethod templateMethod = null;
         string opcao = "";
         do
         {
@@ -28,18 +30,21 @@ class program_teste
             {
                 case "1":
                     {
-                        opcao = Singleton.getInstance().ShowMenu("ConsultarAluno");
-                        
-                        OpcoesAluno(opcao);
-                        
+                        templateMethod = new SecretariaDTO();
+
+                        opcao = Singleton.getInstance().ShowMenu("ConsultarAluno", templateMethod);
+
+                        //OpcoesAluno(opcao);
+
                         break;
                     }
 
                 case "2":
                     {
-                        Singleton.getInstance().ShowMenu("ConsultarLivro");
-                       
-                        OpcoesLivro(opcao);
+                        templateMethod = new BibliotecaDTO();
+                        Singleton.getInstance().ShowMenu("ConsultarLivro", templateMethod);
+
+                        //OpcoesLivro(opcao);
                         break;
 
                     }
@@ -55,7 +60,7 @@ class program_teste
 
     private static void OpcoesLivro(string opcao)
     {
-        BibliotecaDTO biblioteca = new BibliotecaDTO();;
+        BibliotecaDTO biblioteca = new BibliotecaDTO(); ;
 
         switch (opcao)
         {
@@ -85,7 +90,7 @@ class program_teste
     private static void OpcoesAluno(string opcao)
     {
         SecretariaDTO secretaria = new SecretariaDTO();
-        
+
         switch (opcao)
         {
 

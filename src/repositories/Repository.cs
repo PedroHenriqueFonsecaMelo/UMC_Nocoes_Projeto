@@ -27,7 +27,8 @@ namespace UMC_Nocoes_Projeto.src.repositories
 
         }
 
-        public Repository(){
+        public Repository()
+        {
             con = null;
             con = new("Persist Security Info=False;server=127.0.0.1;userid=root;database=test");
             try
@@ -42,7 +43,8 @@ namespace UMC_Nocoes_Projeto.src.repositories
             }
         }
 
-        public void Dispose(){
+        public void Dispose()
+        {
             if (con != null)
             {
                 con.Close();

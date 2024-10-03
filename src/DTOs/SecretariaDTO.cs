@@ -11,7 +11,7 @@ using UMC_Nocoes_Projeto.src.templates;
 namespace UMC_Nocoes_Projeto.src.DTOs
 {
 
-    public class SecretariaDTO : TemplateMethod 
+    public class SecretariaDTO : TemplateMethod
     {
         Table table = new Table();
         Panel panel;
@@ -71,7 +71,7 @@ namespace UMC_Nocoes_Projeto.src.DTOs
             Console.WriteLine("+-----------------------------------------------+    ");
             */
 
-            
+
             AlunoTeste aluno = new AlunoTeste(true);
             string sql = $"UPDATE AlunoTeste SET Nome = '{aluno.Nome}', senha = '{aluno.Senha}', email = '{aluno.Email}', gen = '{aluno.Gen}' WHERE rgm =  '{aluno.Rgm}' ";
             Console.WriteLine(sql);
@@ -152,29 +152,29 @@ namespace UMC_Nocoes_Projeto.src.DTOs
         public override void executarAcao(string op)
         {
             switch (op)
-        {
+            {
 
-            case "1":
-                {
-                    CriarAluno();
-                    break;
-                }
-            case "2":
-                {
-                    UpdateAluno();
-                    break;
-                }
-            case "3":
-                {
-                    DeleteAluno();
-                    break;
-                }
-            case "4":
-                {
-                    ConsultarAluno();
-                    break;
-                }
-        }
+                case "1":
+                    {
+                        CriarAluno();
+                        break;
+                    }
+                case "2":
+                    {
+                        UpdateAluno();
+                        break;
+                    }
+                case "3":
+                    {
+                        DeleteAluno();
+                        break;
+                    }
+                case "4":
+                    {
+                        ConsultarAluno();
+                        break;
+                    }
+            }
         }
     }
 }

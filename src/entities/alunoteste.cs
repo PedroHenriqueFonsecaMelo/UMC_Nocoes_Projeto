@@ -49,7 +49,8 @@ namespace main.src.entities
             }
         }
 
-        public static string ToStringInfo(){
+        public static string ToStringInfo()
+        {
             return EntityServices.ClassInfo(typeof(AlunoTeste));
         }
     }

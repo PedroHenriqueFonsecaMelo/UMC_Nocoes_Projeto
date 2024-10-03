@@ -55,21 +55,22 @@ namespace main.src.services
                             break;
                         }
                     case "Float":
-                    {
-                        decimal value = Convert.ToDecimal(Console.ReadLine());
-                        ClassBuilder.GetType().GetField(item.Name, BindingFlags.Instance | BindingFlags.NonPublic).SetValue(ClassBuilder, value);
-                        break;
-                    }
+                        {
+                            decimal value = Convert.ToDecimal(Console.ReadLine());
+                            ClassBuilder.GetType().GetField(item.Name, BindingFlags.Instance | BindingFlags.NonPublic).SetValue(ClassBuilder, value);
+                            break;
+                        }
                 }
             }
         }
-    
-        public static string ClassInfo(Type ClassInfo){
-            
+
+        public static string ClassInfo(Type ClassInfo)
+        {
+
             return ClassInfo.GetType()
                 .GetProperties()
                 .Select(info => (info.Name, Value: info.GetValue(ClassInfo, null) ?? "(null)"))
-                .Aggregate(new StringBuilder(),(sb, pair) => sb.AppendLine($"{pair.Name}: {pair.Value}"),sb => sb.ToString());
-        } 
+                .Aggregate(new StringBuilder(), (sb, pair) => sb.AppendLine($"{pair.Name}: {pair.Value}"), sb => sb.ToString());
+        }
     }
 }
