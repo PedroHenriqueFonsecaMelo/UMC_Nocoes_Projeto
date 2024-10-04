@@ -1,11 +1,10 @@
 using System;
 using UMC_Nocoes_Projeto.src.services;
 using UMC_Nocoes_Projeto.src.DTOs;
-using main.src.entities;
-using Spectre.Console;
-using UMC_Nocoes_Projeto.src.repositories;
-using Npgsql.Replication;
 using UMC_Nocoes_Projeto.src.templates;
+
+
+
 
 class program_teste
 {
@@ -17,6 +16,7 @@ class program_teste
         //Repository.CreateTableX(typeof(AlunoTeste));
         TemplateMethod templateMethod = null;
         string opcao = "";
+        //ToUML.UML(typeof(Singleton));
         do
         {
             opcao = Singleton.getInstance().ShowMenu("Menu", templateMethod);
