@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="main.src.entities.AlunoTeste" Collapsed="true">
+    <Position X="25.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BQAAAAAAACAAAABgAgAAYAIAACAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>src\entities\alunoteste.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="main.src.entities.Livroteste" Collapsed="true">
+    <Position X="29.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAACAABEAAAgQAaAAAAAAEAMiAokgA=</HashCode>
+      <FileName>src\entities\livroteste.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="main_teste" Collapsed="true">
+    <Position X="25.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>src\entities\main_teste.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="program_teste" Collapsed="true">
+    <Position X="27.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAIAAAABAAAAAA=</HashCode>
+      <FileName>src\program_teste.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UMC_Nocoes_Projeto.src.DTOs.BibliotecaDTO" Collapsed="true">
+    <Position X="21" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgABAAAAAAAAAAAAAAEAAAAAQAAAAAAAAAAAAQEBAAA=</HashCode>
+      <FileName>src\DTOs\BibliotecaDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UMC_Nocoes_Projeto.src.DTOs.SecretariaDTO" Collapsed="true">
+    <Position X="23.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAABAABEAAAAAAIAAAAAAAAAAQQABAAA=</HashCode>
+      <FileName>src\DTOs\SecretariaDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UMC_Nocoes_Projeto.src.repositories.Repository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="29.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAARAAAAUAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\repositories\Repository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="UMC_Nocoes_Projeto.src.templates.TemplateMethod" Collapsed="true">
+    <Position X="22.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAQAAAAA=</HashCode>
+      <FileName>src\templates\TemplateMethod.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="main.src.services.EntityServices" Collapsed="true">
+    <Position X="27.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAACAACAAAAAAAAAAA=</HashCode>
+      <FileName>src\services\EntityServices.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UMC_Nocoes_Projeto.src.services.Singleton" Collapsed="true">
+    <Position X="25.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAABAAA=</HashCode>
+      <FileName>src\services\Singleton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

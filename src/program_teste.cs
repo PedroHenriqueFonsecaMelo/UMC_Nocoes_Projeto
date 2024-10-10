@@ -2,7 +2,6 @@ using System;
 using UMC_Nocoes_Projeto.src.services;
 using UMC_Nocoes_Projeto.src.DTOs;
 using UMC_Nocoes_Projeto.src.templates;
-using System.Reflection;
 using UMC_Nocoes_Projeto.src.dbcon;
 
 
@@ -10,11 +9,12 @@ using UMC_Nocoes_Projeto.src.dbcon;
 
 class program_teste
 {
-    TemplateMethod templateMethod = null;
+    
     static Singleton singleton = Singleton.getInstance();
 
     public static void Main(string[] args)
     {
+        TemplateMethod templateMethod = null;
         //Repository.CreateTableX(typeof(Livroteste));
         //Repository.CreateTableX(typeof(AlunoTeste));
 
@@ -25,8 +25,9 @@ class program_teste
         ToUML.UmlGenerator("UMC_Nocoes_Projeto.src.services");
         ToUML.UmlGenerator("UMC_Nocoes_Projeto.src.repositories");
         ToUML.UmlGenerator("UMC_Nocoes_Projeto.src.templates");
+        ToUML.UmlGenerator(typeof(program_teste).Namespace);
 
-        //opcao = MainMethod(ref templateMethod);
+        opcao = MainMethod(ref templateMethod);
     }
 
     private static string MainMethod(ref TemplateMethod templateMethod)

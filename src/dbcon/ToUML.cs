@@ -15,7 +15,7 @@ namespace UMC_Nocoes_Projeto.src.dbcon
         {
 
 
-            FieldInfo[] Fields = classe.GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly | BindingFlags.NonPublic);
+            FieldInfo[] Fields = classe.GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.DeclaredOnly | BindingFlags.NonPublic);
             StringBuilder table = new StringBuilder();
             String name, tipo;
             int i = 0;
@@ -33,12 +33,12 @@ namespace UMC_Nocoes_Projeto.src.dbcon
 
                 if (i <= Fields.Length - 1)
                 {
-                    UmlNivel(table, name, tipo, f, classe);
+                    UmlAtributos(table, name, tipo, f, classe);
                     table.Append(";");
                 }
                 else
                 {
-                    UmlNivel(table, name, tipo, f, classe);
+                    UmlAtributos(table, name, tipo, f, classe);
                     table.Append(" | ");
                 }
             }
@@ -47,7 +47,7 @@ namespace UMC_Nocoes_Projeto.src.dbcon
                 table.Append(" | ");
             }
 
-            MethodInfo[] metmet = classe.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
+            MethodInfo[] metmet = classe.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly | BindingFlags.Static);
             i = 0;
 
             foreach (MethodInfo item in metmet)
@@ -100,7 +100,7 @@ namespace UMC_Nocoes_Projeto.src.dbcon
             Console.WriteLine(string.Join(classe.Name + "--->", allInterfaces));
         }
 
-        private static void UmlNivel(StringBuilder table, string name, string tipo, FieldInfo f, Type classe)
+        private static void UmlAtributos(StringBuilder table, string name, string tipo, FieldInfo f, Type classe)
         {
             if (f.IsPublic)
             {
@@ -117,7 +117,7 @@ namespace UMC_Nocoes_Projeto.src.dbcon
 
             if (f.FieldType.IsClass && (f.FieldType.Namespace.Contains("UMC_Nocoes_Projeto") || f.FieldType.Namespace.Contains("main")))
             {
-                Console.WriteLine("["+classe.Name + "] -> [" + f.FieldType.Name+"]");
+                Console.WriteLine("["+classe.Name + "] <>-> [" + f.FieldType.Name+"]");
             }
         }
 
@@ -133,7 +133,10 @@ namespace UMC_Nocoes_Projeto.src.dbcon
             Type[] typelist = GetTypesInNamespace(Assembly.GetExecutingAssembly(), Namespace);
             for (int i = 0; i < typelist.Length; i++)
             {
-                UML(typelist[i]);
+               if (!typelist[i].Name.Equals("Program") && !typelist[i].Name.Equals("main_teste"))
+               {
+                 UML(typelist[i]);
+               }
             }
         }
     }
