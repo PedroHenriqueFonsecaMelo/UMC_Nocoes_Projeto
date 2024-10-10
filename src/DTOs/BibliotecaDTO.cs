@@ -1,8 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using main.src.dbcon;
 using main.src.entities;
 using Spectre.Console;
 using UMC_Nocoes_Projeto.src.repositories;
@@ -12,9 +8,11 @@ namespace UMC_Nocoes_Projeto.src.DTOs
 {
     public class BibliotecaDTO : TemplateMethod
     {
+        Livroteste livro;
+        Repository repo;
         public void Criar_livro()
         {
-            Livroteste livro = new Livroteste();
+            livro = new Livroteste();
             Console.WriteLine("ISBN: ");
             livro.SetISBN(Console.ReadLine().ToString());
 

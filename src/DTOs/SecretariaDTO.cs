@@ -15,6 +15,8 @@ namespace UMC_Nocoes_Projeto.src.DTOs
     {
         Table table = new Table();
         Panel panel;
+        AlunoTeste aluno;
+        Repository repo;
 
         public void CriarAluno()
         {
@@ -39,7 +41,7 @@ namespace UMC_Nocoes_Projeto.src.DTOs
             Console.WriteLine("+-----------------------------------------------+    ");
             */
 
-            AlunoTeste aluno = new AlunoTeste(true);
+            aluno = new AlunoTeste(true);
             string sql = $"INSERT INTO AlunoTeste (Rgm, Nome, Senha, Gen, Email) VALUES ('{aluno.Rgm}', '{aluno.Nome}', '{aluno.Senha}', '{aluno.Gen}', '{aluno.Email}');";
             Console.WriteLine(sql);
             using (Repository repository = new Repository())
@@ -72,7 +74,7 @@ namespace UMC_Nocoes_Projeto.src.DTOs
             */
 
 
-            AlunoTeste aluno = new AlunoTeste(true);
+            aluno = new AlunoTeste(true);
             string sql = $"UPDATE AlunoTeste SET Nome = '{aluno.Nome}', senha = '{aluno.Senha}', email = '{aluno.Email}', gen = '{aluno.Gen}' WHERE rgm =  '{aluno.Rgm}' ";
             Console.WriteLine(sql);
             using (Repository repository = new Repository())

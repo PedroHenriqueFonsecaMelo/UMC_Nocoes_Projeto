@@ -1,12 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Security;
 using System.Reflection;
-using System.Reflection.Metadata;
 using System.Text;
-using System.Threading.Tasks;
-using ZstdSharp.Unsafe;
+
 
 namespace UMC_Nocoes_Projeto.src.dbcon
 {
@@ -14,15 +11,16 @@ namespace UMC_Nocoes_Projeto.src.dbcon
     {
 
 
-        public static void UML(Type classe)
+        private static void UML(Type classe)
         {
-            
 
-            FieldInfo[] Fields = classe.GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
+
+            FieldInfo[] Fields = classe.GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly | BindingFlags.NonPublic);
             StringBuilder table = new StringBuilder();
             String name, tipo;
             int i = 0;
-            table.Append("[ " + classe.Name + " |");
+            table.Append("[" + classe.Name + "|");
+
 
 
             foreach (FieldInfo f in Fields)
@@ -35,12 +33,12 @@ namespace UMC_Nocoes_Projeto.src.dbcon
 
                 if (i <= Fields.Length - 1)
                 {
-                    UmlNivel(table, name, tipo, f);
+                    UmlNivel(table, name, tipo, f, classe);
                     table.Append(";");
                 }
                 else
                 {
-                    UmlNivel(table, name, tipo, f);
+                    UmlNivel(table, name, tipo, f, classe);
                     table.Append(" | ");
                 }
             }
@@ -55,10 +53,7 @@ namespace UMC_Nocoes_Projeto.src.dbcon
             foreach (MethodInfo item in metmet)
             {
                 i++;
-                name = item.Name;
-                tipo = item.GetType().Name;
-
-
+                
                 if (i <= metmet.Length - 1)
                 {
                     table.Append(item);
@@ -70,22 +65,76 @@ namespace UMC_Nocoes_Projeto.src.dbcon
                     table.Append("]");
                 }
             }
-
             Console.WriteLine(table.ToString());
 
+            if (classe.GetInterfaces().Length > 0 && !classe.GetInterface("System.IDisposable").FullName.Contains("System.IDisposable"))
+            {
+                AllIntefaces(classe);
+            }
+
+            if (classe.BaseType != null && !classe.BaseType.Name.Contains("Object"))
+            {
+                Console.WriteLine("[" + classe.Name + "]^[" + classe.BaseType.Name + "]");
+            }
+            Console.WriteLine();
         }
 
-        private static void UmlNivel(StringBuilder table, string name, string tipo, FieldInfo f)
+        private static void AllIntefaces(Type classe)
+        {
+            var allInterfaces = new HashSet<Type>(classe.GetInterfaces());
+            var toRemove = new HashSet<Type>();
+            //Considering class A given above allInterfaces contain A and B now
+            foreach (var implementedByMostDerivedClass in allInterfaces)
+            {
+                //For interface A this will only contain single element, namely B
+                //For interface B this will an empty array
+                foreach (var implementedByOtherInterfaces in implementedByMostDerivedClass.GetInterfaces())
+                {
+                    toRemove.Add(implementedByOtherInterfaces);
+                }
+            }
+
+            //Finally remove the interfaces that do not belong to the most derived class.
+            allInterfaces.ExceptWith(toRemove);
+
+            Console.WriteLine(string.Join(classe.Name + "--->", allInterfaces));
+        }
+
+        private static void UmlNivel(StringBuilder table, string name, string tipo, FieldInfo f, Type classe)
         {
             if (f.IsPublic)
             {
-                table.Append("+").Append(name).Append(": ").Append(tipo);
+                table.Append(" +").Append(name).Append(": ").Append(tipo);
             }
             else if (f.IsPrivate)
             {
-                table.Append("+").Append(name).Append(": ").Append(tipo);
+                table.Append(" -").Append(name).Append(": ").Append(tipo);
+            }
+            else
+            {
+                table.Append(" #").Append(name).Append(": ").Append(tipo);
+            }
+
+            if (f.FieldType.IsClass && (f.FieldType.Namespace.Contains("UMC_Nocoes_Projeto") || f.FieldType.Namespace.Contains("main")))
+            {
+                Console.WriteLine("["+classe.Name + "] -> [" + f.FieldType.Name+"]");
             }
         }
 
+        private static Type[] GetTypesInNamespace(Assembly assembly, string nameSpace)
+        {
+            return
+              assembly.GetTypes()
+                      .Where(t => String.Equals(t.Namespace, nameSpace, StringComparison.Ordinal))
+                      .ToArray();
+        }
+        public static void UmlGenerator(string Namespace)
+        {
+            Type[] typelist = GetTypesInNamespace(Assembly.GetExecutingAssembly(), Namespace);
+            for (int i = 0; i < typelist.Length; i++)
+            {
+                UML(typelist[i]);
+            }
+        }
     }
 }
