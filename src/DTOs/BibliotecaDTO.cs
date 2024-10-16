@@ -110,28 +110,28 @@ namespace UMC_Nocoes_Projeto.src.DTOs
             {
                 case "1":
                     {
-                        AnsiConsole.Clear();
+                        //AnsiConsole.Clear();
 
                         Criar_livro();
                         break;
                     }
                 case "2":
                     {
-                        AnsiConsole.Clear();
+                        //AnsiConsole.Clear();
 
                         Atualizar_livro();
                         break;
                     }
                 case "3":
                     {
-                        AnsiConsole.Clear();
+                        //AnsiConsole.Clear();
 
                         Deletar_livro();
                         break;
                     }
                 case "4":
                     {
-                        AnsiConsole.Clear();
+                        //AnsiConsole.Clear();
 
                         Pesquisar_livro();
                         break;

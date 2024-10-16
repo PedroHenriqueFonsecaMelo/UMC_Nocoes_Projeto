@@ -20,12 +20,12 @@ class program_teste
 
         string opcao = "";
         //ToUML.UML(typeof(Singleton));
-        ToUML.UmlGenerator("UMC_Nocoes_Projeto.src.DTOs");
-        ToUML.UmlGenerator("main.src.entities");
-        ToUML.UmlGenerator("UMC_Nocoes_Projeto.src.services");
-        ToUML.UmlGenerator("UMC_Nocoes_Projeto.src.repositories");
-        ToUML.UmlGenerator("UMC_Nocoes_Projeto.src.templates");
-        ToUML.UmlGenerator(typeof(program_teste).Namespace);
+        //ToUML.UmlGenerator("UMC_Nocoes_Projeto.src.DTOs");
+        //ToUML.UmlGenerator("main.src.entities");
+        //ToUML.UmlGenerator("UMC_Nocoes_Projeto.src.services");
+        //ToUML.UmlGenerator("UMC_Nocoes_Projeto.src.repositories");
+        //ToUML.UmlGenerator("UMC_Nocoes_Projeto.src.templates");
+        //ToUML.UmlGenerator(typeof(program_teste).Namespace);
 
         opcao = MainMethod(ref templateMethod);
     }

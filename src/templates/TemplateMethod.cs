@@ -14,10 +14,11 @@ namespace UMC_Nocoes_Projeto.src.templates
             executarAcao(op);
         }
         public abstract void executarAcao(string op);
-        public void limparTela()
+        private void limparTela()
         {
             Console.Clear();
             AnsiConsole.Clear();
+            //AnsiConsole.Clear();
         }
 
     }
